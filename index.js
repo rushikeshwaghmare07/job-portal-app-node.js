@@ -4,6 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 
 const connectDB = require("./db/index.js");
+const errorMiddleware = require("./middlewares/error.middleware.js");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -27,3 +28,6 @@ app.use(morgan("dev"));
 const authenticateRoute = require("./routes/authenticate.route.js");
 
 app.use("/api/v1/auth", authenticateRoute);
+
+// error middleware
+app.use(errorMiddleware);

@@ -1,6 +1,6 @@
 const User = require("../models/user.model.js");
 
-const registerUserController = async (req, res) => {
+const registerUserController = async (req, res, next) => {
     try {
       const { name, email, password } = req.body;
       
@@ -23,11 +23,11 @@ const registerUserController = async (req, res) => {
   
       return res.status(201).json({ success: true, message: "User created successfully, Please log in.", newUser });
     } catch (error) {
-      console.error("Error in register controller:", error);
-      if (error.name === 'ValidationError' && error.errors['email']) {
-        return res.status(400).json({ success: false, message: error.errors['email'].message });
-    }
-      res.status(500).json({ success: false, message: "Internal Server Error" });
+        if (error.name === 'ValidationError') {
+            const errorMessage = Object.values(error.errors)[0].message;
+            return res.status(400).json({ success: false, message: errorMessage });
+        }
+        next(error);
     }
 };
 
