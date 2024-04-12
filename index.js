@@ -1,5 +1,8 @@
 const express = require("express");
 require("dotenv").config();
+const cors = require("cors");
+const morgan = require("morgan");
+
 const connectDB = require("./db/index.js");
 
 const app = express();
@@ -14,3 +17,8 @@ connectDB()
     .catch((err) => {
         console.error("MONGO DB connection failed !!", err);
     });
+
+// middlewares
+app.use(express.json());
+app.use(cors());
+app.use(morgan("dev"));
