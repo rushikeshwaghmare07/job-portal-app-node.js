@@ -22,3 +22,8 @@ connectDB()
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
+
+// routes and route imports
+const authenticateRoute = require("./routes/authenticate.route.js");
+
+app.use("/api/v1/auth", authenticateRoute);
