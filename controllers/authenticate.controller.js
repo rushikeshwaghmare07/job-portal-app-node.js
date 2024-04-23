@@ -3,17 +3,7 @@ const User = require("../models/user.model.js");
 const registerUserController = async (req, res, next) => {
     try {
       const { name, email, password } = req.body;
-      
-      if (!name) {
-        return res.status(400).json({ success: false, message: "Please provide your name." });
-      }
-      if (!email) {
-        return res.status(400).json({ success: false, message: "Please provide your email." });
-      }
-      if (!password) {
-        return res.status(400).json({ success: false, message: "Please provide your password." });
-      }
-
+  
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         return res.status(400).json({ success: false, message: "Email is already registered. Please log in instead." });
