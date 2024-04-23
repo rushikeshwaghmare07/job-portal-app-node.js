@@ -11,7 +11,10 @@ const registerUserController = async (req, res, next) => {
   
       const newUser = await User.create({ name, email, password });
   
-      return res.status(201).json({ success: true, message: "User created successfully, Please log in.", newUser });
+      // token
+      const token = await newUser.createJWT();
+
+      return res.status(201).json({ success: true, message: "User created successfully, Please log in.", newUser, token });
     } catch (error) {
         if (error.name === 'ValidationError') {
             const errorMessage = Object.values(error.errors)[0].message;
