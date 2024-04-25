@@ -26,8 +26,10 @@ app.use(morgan("dev"));
 
 // routes and route imports
 const authenticateRoute = require("./routes/authenticate.route.js");
+const userRoute = require("./routes/user.route.js");
 
 app.use("/api/v1/auth", authenticateRoute);
+app.use("/api/v1/user", userRoute);
 
 // error middleware
 app.use(errorMiddleware);
